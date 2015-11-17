@@ -69,6 +69,17 @@ def update_contact
   puts RestClient.patch(url, {contact: {name: "Gizom Jr."}})
 end
 
+def favorite_contact
+  url = Addressable::URI.new(
+    scheme: 'http',
+    host: 'localhost',
+    port: 3000,
+    path: 'contacts/4/favorite.json'
+  ).to_s
+
+  puts RestClient.patch(url, {contact: {favorite: true}})
+end
+
 # Contact Shares
 
 def create_contact_share
@@ -93,5 +104,40 @@ url = Addressable::URI.new(
 puts RestClient.delete(url)
 end
 
+def favorite_share
+  url = Addressable::URI.new(
+    scheme: 'http',
+    host: 'localhost',
+    port: 3000,
+    path: 'contact_shares/3/favorite.json'
+  ).to_s
 
-destroy_contact_share
+  puts RestClient.patch(url, {contact_share: {favorite: true}})
+end
+
+#Comments
+def create_comment
+url = Addressable::URI.new(
+  scheme: 'http',
+  host: 'localhost',
+  port: 3000,
+  path: '/comments.json'
+).to_s
+
+puts RestClient.post(url, {comment: {comment: "hello", author_id: 1, commentable_id: 1, commentable_type: "User"}})
+end
+
+def destroy_comment
+url = Addressable::URI.new(
+  scheme: 'http',
+  host: 'localhost',
+  port: 3000,
+  path: '/comments/3.json'
+).to_s
+
+puts RestClient.delete(url)
+end
+
+
+
+destroy_comment

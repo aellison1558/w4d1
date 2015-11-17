@@ -17,8 +17,17 @@ class ContactSharesController < ApplicationController
     end
   end
 
+  def favorite
+    share = ContactShare.find_by(id: params[:id])
+    if share.update(contact_share_params)
+      render json: "Contact favorited :)"
+    else
+      render json: "Could not favorite :("
+    end
+  end
+
   private
   def contact_share_params
-    params[:contact_share].permit(:user_id, :contact_id)
+    params[:contact_share].permit(:user_id, :contact_id, :favorite)
   end
 end

@@ -37,6 +37,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def favorite
+    contacts = User.find_by(id: params[:user_id]).contacts.where(favorite: true)
+    shared_contacts = User.find_by(id: params[:user_id]).shared_contacts.where(favorite: true)
+    render json: (contacts + shared_contacts).uniq
+  end
+
   private
   def user_params
     params[:user].permit(:username)

@@ -37,8 +37,17 @@ class ContactsController < ApplicationController
     end
   end
 
+  def favorite
+    contact = Contact.find_by(id: params[:id])
+    if contact.update(contact_params)
+      render json: "Contact favorited!"
+    else
+      render json: "Contact not favorited :("
+    end
+  end
+
   private
   def contact_params
-    params[:contact].permit(:name, :email, :user_id)
+    params[:contact].permit(:name, :email, :user_id, :favorite)
   end
 end

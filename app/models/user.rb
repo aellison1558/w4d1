@@ -10,4 +10,14 @@ class User < ActiveRecord::Base
 
   has_many :contacts
 
+  has_many :comments,
+    as: :commentable
+
+  has_many :authored_comments,
+    foreign_key: :author_id,
+    primary_key: :id,
+    class_name: 'Comment'
+
+  has_many :groups
+
 end
